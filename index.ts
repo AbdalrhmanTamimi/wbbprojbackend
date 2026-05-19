@@ -1,3 +1,4 @@
+import dns from "dns";
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
@@ -36,7 +37,14 @@ app.use(
     })
 );
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/backend";
+let mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/backend";
+
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
+
+if (mongoUrl.includes("<db_password>")) {
+    console.warn("MONGO_URL contains placeholder <db_password>. Falling back to local MongoDB for local testing.");
+    mongoUrl = "mongodb://127.0.0.1:27017/backend";
+}
 
 mongoose
     .connect(mongoUrl)
