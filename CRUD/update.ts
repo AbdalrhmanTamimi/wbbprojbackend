@@ -1,12 +1,12 @@
 import express from "express";
 
-import Data from "../database/data.js"; 
+import Data from "../database/data";
 
 const router = express.Router();
 
 router.put("/:id", async (req, res, next) => {
     try {
-        const userId = req.session?.userId;
+        const userId = (req.session as any)?.userId;
 
         if (!userId) {
             return res.status(401).json({ message: "Unauthorized" });

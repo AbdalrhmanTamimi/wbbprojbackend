@@ -3,7 +3,7 @@ import data from "../database/data";
 const router = express.Router();
 router.post("/", async (req, res) => {
     try {
-        const newData = await Data.create(req.body);
+        const newData = await data.create(req.body);
 
         res.status(201).json({
             success: true,
@@ -11,9 +11,10 @@ router.post("/", async (req, res) => {
         });
 
     } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
         res.status(500).json({
             success: false,
-            message: err.message,
+            message,
         });
     }
 });

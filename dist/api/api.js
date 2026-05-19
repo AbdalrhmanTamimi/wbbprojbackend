@@ -1,0 +1,24 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const login_1 = __importDefault(require("../auth/login"));
+const Delete_1 = __importDefault(require("../CRUD/Delete"));
+const update_1 = __importDefault(require("../CRUD/update"));
+const register_1 = __importDefault(require("../auth/register"));
+const isSign_1 = __importDefault(require("../auth/isSign"));
+const read_1 = __importDefault(require("../CRUD/read"));
+const create_1 = __importDefault(require("../CRUD/create"));
+const signout_1 = __importDefault(require("../auth/signout"));
+const app = express_1.default.Router();
+app.use('/login', login_1.default);
+app.use('/delete', Delete_1.default);
+app.use('/update', update_1.default);
+app.use('/read', read_1.default);
+app.use('/create', create_1.default);
+app.use('/register', register_1.default);
+app.use('/isSign', isSign_1.default);
+app.use('/sign-out', signout_1.default);
+exports.default = app;
